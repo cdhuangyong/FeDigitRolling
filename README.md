@@ -1,5 +1,5 @@
 # FeDigitRolling
-基于three css3drenderer数字翻页特效
+基于three css3d数字翻页特效
 ## 代码示例
 ```html
 <!DOCTYPE html>
