@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="./three.min.js"></script>
+    <script type="text/javascript" src="./CSS3DRenderer.js"></script>
+    <script type="text/javascript" src="./tween.min.js"></script>
+    <script type="text/javascript" src="./FeDigitRolling.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+<script type="text/javascript">
+    
+    var digitRolling = new FeDigitRolling({
+        container:document.getElementById("container"),
+        height:200,
+        width:600,
+        number:112.22,
+        maxWidth: 150,
+        bgColor:"orange",
+        gap:0,
+        times:"auto",
+        padding:[0,0,0,0]
+    });
+
+</script>
+</html>
