@@ -2,12 +2,14 @@ function FeDigitRolling(options){
 
     options = options || {};
     this.container = options.container || null;
-    //this.fontSize = options.fontSize || 16;
+    this.fontSize = options.fontSize;
+    this.fontFamily = options.fontFamily;
     this.number = options.number || 0;
     this.padding = options.padding || [5,5,5,5];
     this.gap = options.gap == undefined ? 3 : options.gap;
     this.width = options.width || 100;
     this.height = options.height || 50;
+    this.color = options.color || "white";
     this.bgColor = options.bgColor || "black";
     this.maxWidth = options.maxWidth || 200;
     this.block1 = {};
@@ -90,7 +92,7 @@ FeDigitRolling.prototype = {
         //上面第一张
         var group = new THREE.Group();
         var el,object,obj;
-
+        fontSize = this.fontSize || fontSize;
         if(this.block1[index] ){
 
             el = this.block1[index].el;
@@ -114,7 +116,7 @@ FeDigitRolling.prototype = {
             el.style.fontSize = fontSize + "px";
             el.style.transition = "width 1s";
             el.style.overflow = "hidden";
-
+            el.innerText = "0";
             el.className = "node-"+index;
             object = new THREE.CSS3DObject(el);
             object.position.x = startx + (c == "." ? dotWidth : fwidth) / 2;
@@ -163,7 +165,7 @@ FeDigitRolling.prototype = {
             el.style.fontSize = fontSize + "px";
             el.style.transition = "width 1s";
             el.style.overflow = "hidden";
-
+            el.innerText = "0";
             el.className = "node-"+index;
             object = new THREE.CSS3DObject(el);
             object.position.x = startx + (c == "." ? dotWidth : fwidth) / 2;
@@ -211,7 +213,7 @@ FeDigitRolling.prototype = {
             el.style.fontSize = fontSize + "px";
             el.style.transition = "width 1s";
             el.style.overflow = "hidden";
-
+            el.innerText = "0"
             el.className = "node-"+index;
             object = new THREE.CSS3DObject(el);
             object.position.x = startx + (c == "." ? dotWidth : fwidth) / 2;
@@ -267,24 +269,25 @@ FeDigitRolling.prototype = {
         var lastValue = repeat ? lastValue : a.lastValue;
         var value = times > 1 ? parseInt(Math.random() * 10) : a.value;
 
-        a.cssobject.position.z = 0.00003;
-        b.cssobject.position.z = 0.00001;
-        c.cssobject.position.z = 0.00002;
+        if(!repeat && a.value == a.lastValue)return;
+
+        a.cssobject.position.z = a.obj.position.z = 0;
+        b.cssobject.position.z = b.obj.position.z = -1;
+        c.cssobject.position.z = c.obj.position.z = -0.5;
         
-        if(a.value == a.lastValue)return;
+        a.el.innerText = lastValue
+        b.el.innerText = lastValue;
+        c.el.innerText = value;
 
         if(a.value == "."){
             times = 1;
             value = ".";
+            c.el.innerText = value;
         }
 
         if(this.blockTween[index] && !repeat){
             this.blockTween[index].stop();
         }
-
-        a.el.innerText = lastValue
-        b.el.innerText = lastValue;
-        c.el.innerText = value;
 
         var isswitch = false;
         var tween = new TWEEN.Tween(a.obj.rotation)
@@ -317,9 +320,7 @@ FeDigitRolling.prototype = {
             c.order = 0;
 
             if(times > 1){
-
                 _this.animateBlock(c,a,b,index,true,--times,value);
-
             }
 
         })
