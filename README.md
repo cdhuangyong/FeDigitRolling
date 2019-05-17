@@ -1,5 +1,7 @@
 # FeDigitRolling
 基于three css3d数字翻页特效
+## 效果图
+![avatar](https://github.com/cdhuangyong/FeDigitRolling/blob/master/demo-effect.gif)
 ## 代码示例
 ```html
 <!DOCTYPE html>
